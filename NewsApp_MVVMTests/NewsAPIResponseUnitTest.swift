@@ -12,12 +12,11 @@ class NewsAPIResponseUnitTest: XCTestCase {
     
     func test_NewsAPIResponse() {
         
-        let baseURL = NewsEndPoints.baseURL
         let networkObj = NetworkManager()
         
         let expectation = self.expectation(description: "NewsAPI_Valid_Response")
         
-        networkObj.fetchNewsData(baseURL: baseURL) { result in
+        networkObj.fetchNewsData(baseURL: TestData.API_URLs.validURL) { result in
             
             // ASSERT
             XCTAssertNotNil(result) // Result should not be nil.
@@ -29,6 +28,33 @@ class NewsAPIResponseUnitTest: XCTestCase {
             case .success(let response):
                 XCTAssertNotNil(response) // In case of success, response shouldn't be nil
                 XCTAssertEqual(response.status, "ok")
+            }
+            expectation.fulfill()
+            
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    
+    func test_NewsAPI_InvalidResponse() {
+        
+    
+        let networkObj = NetworkManager()
+        let expectation = self.expectation(description: "NewsAPI_Valid_Response")
+        
+        networkObj.fetchNewsData(baseURL: TestData.API_URLs.invalidURL) { result in
+            
+            // ASSERT
+            XCTAssertNotNil(result) // Result should not be nil.
+            
+            switch result {
+                case .failure(let error):
+                XCTAssertNotNil(error) // In case of error, it should not be nil
+                
+            case .success(let response):
+                XCTAssertNotNil(response) // In case of success, response shouldn't be nil
+                XCTAssertEqual(response.status, "error")
             }
             expectation.fulfill()
             

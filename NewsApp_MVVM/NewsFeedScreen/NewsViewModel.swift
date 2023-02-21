@@ -16,21 +16,21 @@ class NewsViewModel {
     var dataSource = [NewsCellModel]()
     var newsResponse: NewsResponseModel?
     
-    // all network & database request will go through repository:
-    let newsRepository: NewsViewRepositoryProtocol?
-    
     init(repository: NewsViewRepositoryProtocol?) {
         self.newsRepository = repository
     }
     
-    typealias closure = (_ response: NewsResponseModel?,_ msg: String) -> Void
+    // all network & database request will go through repository:
+    let newsRepository: NewsViewRepositoryProtocol?
+    
+    typealias closure = (_ response: NewsResponseModel?) -> Void
     
     func getNews(completion: @escaping(closure)) {
-        newsRepository?.fetchNewsData(completion: { response, msg in
+        newsRepository?.fetchNewsData(completion: { response in
             
-            if let response = response, msg == "success" {
+            if let response = response {
                 self.createDataSource()
-                completion(response,"success")
+                completion(response)
             }
         })
    }

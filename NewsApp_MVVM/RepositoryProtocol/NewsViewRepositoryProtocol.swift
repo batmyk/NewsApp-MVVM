@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NewsViewRepositoryProtocol {
-    typealias closure = (_ response: NewsResponseModel?,_ msg: String) -> Void
+    typealias closure = (_ response: NewsResponseModel?) -> Void
     
     var networkManager: NetworkManagerProtocol? { get }
     var newsData: NewsResponseModel {get}

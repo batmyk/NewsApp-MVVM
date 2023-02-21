@@ -8,8 +8,14 @@
 import Foundation
 
 class NewsViewRepository: NewsViewRepositoryProtocol {
+
+    var newsData = NewsResponseModel()
+    var networkManager: NetworkManagerProtocol?
+    init(networkManager: NetworkManagerProtocol?) {
+        self.networkManager = networkManager
+    }
     
-    func fetchNewsData(completion: @escaping(NewsResponseModel?, String) -> Void) {
+    func fetchNewsData(completion: @escaping(NewsResponseModel?) -> Void) {
         
         let url = NewsEndPoints.baseURL
         
@@ -18,60 +24,14 @@ class NewsViewRepository: NewsViewRepositoryProtocol {
                         switch result {
                             case .failure(let error):
                                 print("Error : \(error)")
-                                completion(nil,"error")
+                                completion(nil)
                             case .success(let response):
                                 print("Response: \(response)")
-                                completion(response,"success")
+                                completion(response)
                         }
             
             
         })
         
     }
-    
-    
-    
-
-//    func fetchNewsData(completion: closure) {
-//
-//        networkManager?.fetchNewsData(completion: { result in
-//
-//
-//
-////            switch result {
-////            case .failure(let error):
-////                print("Error : \(error)")
-////                completion(error,"Error")
-////                completion(error)
-////            case .success(let response):
-////                print("Response: \(response)")
-////                completion(response)
-////            }
-//        })
-//    }
-    
-    
-    
-    var newsData = NewsResponseModel()
-    
-//    func fetchNewsDataa(completion: NewsResponseModel) {
-//        networkManager?.fetchNewsData(completion: { result in
-//
-//            switch result {
-//            case .failure(let error):
-//                print("Error : \(error)")
-//                completion(error)
-//            case .success(let response):
-//                print("Response: \(response)")
-//                completion(response)
-//            }
-//        })
-//    }
-    
-    var networkManager: NetworkManagerProtocol?
-    init(networkManager: NetworkManagerProtocol?) {
-        self.networkManager = networkManager
-    }
-    
-    
 }

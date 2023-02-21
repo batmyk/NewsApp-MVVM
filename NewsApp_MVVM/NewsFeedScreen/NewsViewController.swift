@@ -30,14 +30,17 @@ class NewsViewController: BaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        viewModel?.getNews(completion: { response, msg in
-            
-            if let response = response, msg == "success" {
+        fetchNewsData()
+    }
+
+    func fetchNewsData() {
+        
+        viewModel?.getNews(completion: { response in
+            if let response = response {
                 self.articles = response.articles ?? []
             }
         })
     }
-
 
 }
 
