@@ -11,14 +11,10 @@ import UIKit
 class DependecyAssembler {
     
     static let shared = DependecyAssembler()
-    
     private init() {}
-    
     var networkManager: NetworkManagerProtocol?
-
     lazy var newsViewRepository = NewsViewRepository(networkManager: networkManager)
-    
-    
+
 }
 
 extension DependecyAssembler: NewsViewFactory {

@@ -12,7 +12,6 @@ protocol NewsViewRepositoryProtocol {
     
     var networkManager: NetworkManagerProtocol? { get }
     var newsData: NewsResponseModel {get}
-    
     func fetchNewsData(completion: @escaping(closure))
     
 }

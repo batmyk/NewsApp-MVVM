@@ -11,6 +11,5 @@ protocol NewsViewFactory {
     
     func makeNewsViewModel(coordinator: NewsViewCoordinator) -> NewsViewModel
     func makeNewsViewController(coordinator: NewsViewCoordinator) -> NewsViewController?
-    
     func makeNewsCoordinator(router: Router, factory: NewsViewFactory) -> NewsViewCoordinator
 }
