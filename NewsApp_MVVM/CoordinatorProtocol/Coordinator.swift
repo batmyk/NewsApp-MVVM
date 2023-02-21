@@ -7,6 +7,11 @@
 
 import Foundation
 
+/**
+ Coordinator will maintian the complete flow of Navigation. (Like a navigation Stack). It is a navigation manager, actual navigation will be done in Router. For every screen you'll be having a dedicated coordinator.
+ **/
+
+
 public protocol Coordinator: AnyObject {
     
     var children: [Coordinator] {get set} // Used to hold all the child coordinator under a parent coordinator.

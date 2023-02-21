@@ -11,13 +11,9 @@ class NewsViewRepository: NewsViewRepositoryProtocol {
     
     func fetchNewsData(completion: @escaping(NewsResponseModel?, String) -> Void) {
         
-//        networkManager?.fetchNewsData(completion: { response in
-//            if let response = response {
-//                completion(response, "success")
-//            }
-//        })
+        let url = NewsEndPoints.baseURL
         
-        networkManager?.fetchNewsDataa(completion: { result in
+        networkManager?.fetchNewsData(baseURL: url,completion: { result in
             
                         switch result {
                             case .failure(let error):

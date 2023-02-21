@@ -10,7 +10,7 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     
-    func fetchNewsDataa(completion: @escaping (Result<NewsResponseModel, Error>) -> Void)
+    func fetchNewsData(baseURL:String?, completion: @escaping (Result<NewsResponseModel, Error>) -> Void)
 
     
 }

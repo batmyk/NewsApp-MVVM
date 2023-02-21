@@ -9,10 +9,15 @@ import Foundation
 
 class NetworkManager: NetworkManagerProtocol {
     
-    func fetchNewsDataa(completion: @escaping (Result<NewsResponseModel, Error>) -> Void) {
+    func fetchNewsData(baseURL:String?,completion: @escaping (Result<NewsResponseModel, Error>) -> Void) {
      
 
-            guard let url = URL(string: "https://newsapi.org/v2/everything?q=tesla&from=2023-02-18&sortBy=publishedAt&apiKey=c0ec0d866444432397d05994eaabcf0b") else {
+        guard let stringURL = baseURL else {
+            completion(.failure(APIError.invalidUrl))
+            return
+        }
+        
+        guard let url = URL(string: stringURL) else {
                 completion(.failure(APIError.invalidUrl))
                 return
             }
@@ -50,4 +55,7 @@ class NetworkManager: NetworkManagerProtocol {
         case failed(error: Error)
         case unknownError
     }
+    
 }
+
+
