@@ -7,12 +7,29 @@
 
 import UIKit
 
+protocol PassNewsDataDelegate {
+    func passNewsDataThroughDelegate(response: NewsResponseModel?)
+}
+
 protocol HomeViewControllerDelegate {
     func navigateToNextScreen(_ viewController: NewsViewController)
 }
 
-class NewsViewController: BaseViewController {
+class NewsViewController: BaseViewController, PassNewsDataDelegate {
+    
+    
+    func passNewsDataThroughDelegate(response: NewsResponseModel?) {
+        // Update the UI
+        guard let response = response else {
+            return
+        }
 
+        print("Delegaet called")
+        self.articles = response.articles ?? []
+        
+    }
+    
+    
     var viewModel: NewsViewModel?
     var delegate: NewsViewControllerDelegate?
     var articles =  [Articles]() {
@@ -29,7 +46,8 @@ class NewsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+//        viewModel?.newsRepository?.delegatee = self
+        viewModel?.newsRepository?.delegatee = self
         fetchNewsData()
     }
 

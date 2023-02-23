@@ -8,9 +8,11 @@
 import Foundation
 
 class NewsViewRepository: NewsViewRepositoryProtocol {
+    var delegatee: PassNewsDataDelegate?
 
     var newsData = NewsResponseModel()
     var networkManager: NetworkManagerProtocol?
+    
     init(networkManager: NetworkManagerProtocol?) {
         self.networkManager = networkManager
     }
@@ -33,5 +35,22 @@ class NewsViewRepository: NewsViewRepositoryProtocol {
             
         })
         
+    }
+    
+    func fetchDataThroughDelegate() {
+        let url = NewsEndPoints.baseURL
+        
+        networkManager?.fetchNewsData(baseURL: url, completion: { result in
+            
+            switch result {
+                case .success(let response):
+                    print("Response: \(response)")
+                self.delegatee?.passNewsDataThroughDelegate(response: response)
+                
+                case .failure(let error):
+                    print("Error: \(error)")
+                self.delegatee?.passNewsDataThroughDelegate(response: nil)
+            }
+        })
     }
 }

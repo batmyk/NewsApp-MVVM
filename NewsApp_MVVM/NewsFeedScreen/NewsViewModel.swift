@@ -21,18 +21,21 @@ class NewsViewModel {
     }
     
     // all network & database request will go through repository:
-    let newsRepository: NewsViewRepositoryProtocol?
+    var newsRepository: NewsViewRepositoryProtocol?
     
     typealias closure = (_ response: NewsResponseModel?) -> Void
     
     func getNews(completion: @escaping(closure)) {
-        newsRepository?.fetchNewsData(completion: { response in
-            
-            if let response = response {
-                self.createDataSource()
-                completion(response)
-            }
-        })
+//        newsRepository?.fetchNewsData(completion: { response in
+//
+//            if let response = response {
+//                self.createDataSource()
+//                completion(response)
+//            }
+//        })
+        
+        newsRepository?.fetchDataThroughDelegate()
+        
    }
     
     
